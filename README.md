@@ -1,19 +1,19 @@
+# 目錄
+[README](#README)
+[ERD](#ERD)
+
 # README
+* Ruby version 2.6.3
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
+* Rrails version 5.2.3
 
 * System dependencies
 
 * Configuration
 
-* Database creation
+* Database creation postgresql
 
-* Database initialization
+* Database initialization postgresql
 
 * How to run the test suite
 
@@ -21,4 +21,10 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+---
+
+# ERD
+
+![](https://i.imgur.com/YsLjHue.png)
+
+URL：[lucidchart (ERD)](https://www.lucidchart.com/documents/view/78befe44-6432-4bb0-8769-a333bed76869)
