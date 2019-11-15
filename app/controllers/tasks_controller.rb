@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
 
   def index
+    # 到「步驟17: 增加分頁功能」，先暫時用 all
     @tasks = Task.all
   end
 
@@ -33,8 +34,12 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.destroy
-    redirect_to root_path, notice: "刪除成功!"
+    if @task.destroy
+      notice = "刪除成功!"
+    else
+      notice = '刪除失敗!'
+    end
+    redirect_to root_path, notice: notice
   end
 
   private

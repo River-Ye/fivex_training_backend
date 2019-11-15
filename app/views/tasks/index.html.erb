@@ -14,7 +14,7 @@
         <th><%= link_to task.title, task_path(task) %></th>
         <th><%= task.content %></th>
         <th><%= link_to "修改", edit_task_path(task) %></th>
-        <th><%= link_to "刪除", task_path(task), method: :delete, data: { confirm: '確定要刪除嗎?' }%></th>
+        <th><%= link_to "刪除", task_path(task), method: :delete, data: { confirm: '確定要刪除嗎?' } %></th>
       </tr>
     <% end %>
   </tbody>
