@@ -34,7 +34,8 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    if @task.destroy
+    @task.destroy
+    if @task.destroyed?
       notice = "刪除成功!"
     else
       notice = '刪除失敗!'
