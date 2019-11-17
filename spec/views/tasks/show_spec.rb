@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "tasks/show.html.erb",type: :view do
   before do
-    @task = Task.create(title: 'test title', content: 'content')
+    @task = Task.create(title: "test title", content: "content")
   end
 
   it "render content when" do

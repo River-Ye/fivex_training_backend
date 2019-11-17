@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
-  let(:task1) { Task.create(title: 'title_1', content: 'content_1')}
-  let(:task2) { Task.create(title: 'title_2', content: 'content_2')}
-  let(:task_params) { {title: 'title_3', content: 'content_3'}}
-  let!(:task3) { task2 || Task.create(title: 'title_4', content: 'content_4')}
+  let(:task1) { FactoryBot.create(:task) }
+  let(:task2) { FactoryBot.create(:task) }
+  let!(:task3) { task2 || FactoryBot.create(:task) }
+  let(:task_params) { {title: "title_4", content: "content_4"} }
   let(:with_http200) { expect(response).to have_http_status(200)}
   let(:without_http200) { expect(response).not_to have_http_status(200)}
   let(:with_http302) { expect(response).to have_http_status(302)}
@@ -31,7 +31,7 @@ RSpec.describe TasksController, type: :controller do
   describe "#create" do
     it "creates record" do
       expect{ post :create, params: { task: task_params }}.to change{ Task.all.size }.by(1)
-      expect(flash[:notice]).to eq '新增成功!'
+      expect(flash[:notice]).to eq "新增成功!"
     end
 
     it "redirect on success" do
@@ -52,8 +52,8 @@ RSpec.describe TasksController, type: :controller do
   describe "#update" do
     it "changes record" do
       post :update, params: { task: task_params, id: task2 }
-      expect(Task.find(task2.id)[:title]).to eq "title_3"
-      expect(Task.find(task2.id)[:content]).to eq "content_3"
+      expect(Task.find(task2.id)[:title]).to eq "title_4"
+      expect(Task.find(task2.id)[:content]).to eq "content_4"
     end
 
     it "redirect on success" do
@@ -76,7 +76,7 @@ RSpec.describe TasksController, type: :controller do
       expect{ delete :destroy, params: { id: task2 }}.to change{ Task.count }.by(-1)
       with_http302
       expect(response).to redirect_to(root_path(task3.id))
-      expect(flash[:notice]).to eq '刪除成功!'
+      expect(flash[:notice]).to eq "刪除成功!"
     end
 
     it "destroy to fail" do
@@ -84,7 +84,7 @@ RSpec.describe TasksController, type: :controller do
       expect{ delete :destroy, params: { id: task2 }}.to change{ Task.count }.by(0)
       with_http302
       expect(response).to redirect_to(root_path(Task.find(task2.id)))
-      expect(flash[:notice]).to eq '刪除失敗!'
+      expect(flash[:notice]).to eq "刪除失敗!"
     end
   end
 end
