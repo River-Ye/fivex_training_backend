@@ -9,7 +9,7 @@ RSpec.feature "Task CRUD", type: :feature do
     click_link "新增任務"
     fill_in "標題", with: "運動"
     fill_in "內容", with: "跑步 5 mins"
-    click_button "Create Task"
+    click_button "新增任務"
 
     expect(page).to have_text("新增成功!")
     expect(last_date.title).to have_content("運動")
@@ -28,7 +28,7 @@ RSpec.feature "Task CRUD", type: :feature do
     visit "tasks/#{task1.id}/edit"
     fill_in "標題", with: "看書"
     fill_in "內容", with: "3 本書"
-    click_button "Update Task"
+    click_button "更新任務"
 
     expect(page).to have_text("更新成功!")
     expect(last_date.title).not_to have_content(task1.title)

@@ -1,5 +1,5 @@
-<h1>顯示任務</h1>
-<p>標題: <%= @task.title %></p>
-<p>內容: <%= @task.content %></p>
+<h1><%= t("task_show") %></h1>
+<p><%= t("title") %>: <%= @task.title %></p>
+<p><%= t("content") %>: <%= @task.content %></p>
 
-<%= link_to "首頁", root_path %>
+<%= link_to t("root"), root_path %>
