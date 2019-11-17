@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+- 2.6.3
+install: bundle install
+services:
+  - postgresql
+script:
+  - bundle exec rake db:migrate:reset RAILS_ENV=test
+  - bundle exec rspec
+env:
+  global:
+    secure: rTGZYIH17pJGqp3XLq3nS5yM/VOSiZdcODs5KnlbpTk9HJTBkfC+acSzz5+O+M446b+2xzWr1I5hClbqEjBjmcur4f6oXjumO68hF17uZIB/mOlI11wEHIpGD7T491QO7eHKKI0fMAttiYqflFumwP8ETMhpVWskcRqc976US9BlmIWINHygq51dSv1WCWrAEm03RFaIOhPM9jJLtEEY4sDbMSHtRR0Nhz7rms0vubtFHoHVdY4lgt1cC4vjfppQHOD0DqbfyOFACrC7ot6x4++vQu0e+rEPsiTWwdegF3uANux1qeBO0YHdUpKtLhdS8lKRmCQr01oxNvXY1h2FMJYpg8CmNRyRLwWGOns9bizKagK4iFvm1PbVEH7iQA0D3yffSIU8vy0aVpfuT3CUSPaIg7bsq6/vj/H9APAXfTta7DRvsMjFsaj6maWFmwx87wvg3zqO0qmLz8Whyk0H3eDPt7pjb8xagODyfkJeJ0Rcf9PY77TTGCkWBkQ06unmQhH/MW2GNVI04B1A1OyW+RoqNQk9u8IUYBs4nJ18HNbpn1jWN6VCu3Gt0TMJWlGz/kkWHnV5on8svCiyJ5/nUripe0C2fhwkGsOyiw8VsOSuZYjoeI2ZepUvGv59dA9VnD0fa/ms7zFQnsb6wkaxOHiER6kbq0HXssR4kIedr7g=

@@ -43,6 +43,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
   gem 'faker', '~> 2.7'
   gem 'database_cleaner', '~> 1.7'
+  gem 'travis', '~> 1.8', '>= 1.8.10'
 end
 
 group :development do
