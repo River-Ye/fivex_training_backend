@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "tasks/edit.html.erb",type: :view do
   before do
-    @task = Task.create(title: "test title", content: "content")
+    @task = create(:task, title: "test_title", content: "content")
   end
 
   it "render partial" do

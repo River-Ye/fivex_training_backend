@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Task CRUD", type: :feature do
   let(:last_date) { Task.last }
-  let!(:task1) { FactoryBot.create(:task) }
+  let!(:task1) { create(:task) }
 
   scenario "使用者可以新增任務" do
     visit root_path
@@ -38,7 +38,7 @@ RSpec.feature "Task CRUD", type: :feature do
     visit root_path
     
     expect{ click_link "刪除" }.to change(Task, :count).by(-1)
-    expect(Task.count).to be 0
+    expect(Task.find_by(id: task1.id)).to be_blank
     expect(page).to have_text("刪除成功!")
   end
 end
