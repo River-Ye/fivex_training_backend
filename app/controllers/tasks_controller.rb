@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to root_path, notice: "任務成功!"
+      redirect_to root_path, notice: "新增成功!"
     else
       render :new
     end
