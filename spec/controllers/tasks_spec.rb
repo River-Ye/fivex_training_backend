@@ -40,7 +40,7 @@ RSpec.describe TasksController, type: :controller do
       post :create, params: { task: task_params }
       without_http200
       with_http302
-      expect(response).to redirect_to(root_path(Task.last))
+      expect(response).to redirect_to(root_path)
     end
 
     it "render :new on fail" do
@@ -63,7 +63,7 @@ RSpec.describe TasksController, type: :controller do
       post :update, params: { task: task_params, id: task }
       without_http200
       with_http302
-      expect(response).to redirect_to(root_path(Task.find(task.id)))
+      expect(response).to redirect_to(root_path)
     end
 
     it "render :edit on fail" do

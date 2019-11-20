@@ -8,12 +8,12 @@
 
 <%= form_for(task) do |form| %>
   <div class="field">
-    <%= form.label :title, '標題:' %>
+    <%= form.label :title, t("title") %>
     <%= form.text_field :title %>
   </div>
 
   <div class="field">
-    <%= form.label :content, '內容:' %>
+    <%= form.label :content, t("content") %>
     <%= form.text_area :content %>
   </div>
 
