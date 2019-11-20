@@ -1,10 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe "tasks/index.html.erb", type: :view do
+RSpec.describe "tasks/index.html.erb", type: :view do    
   it "can render" do
-    @task = Task.create(title: "test title", content: "content")
-    @tasks = Array.new(2, @task)
+    task1 = create(:task)
+    task2 = create(:task)
+    @tasks = [task1, task2]
     render
-    expect(rendered).to include("test title")
+    
+    expect(rendered).to include(task1.title, task2.title)
+    expect(rendered).to include(task1.content, task2.content)
   end
 end

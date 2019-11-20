@@ -13,6 +13,7 @@ RSpec.feature "Task CRUD", type: :feature do
 
     expect(page).to have_text("新增成功!")
     expect(last_date.title).to have_content("運動")
+    expect(last_date.content).to have_content("跑步 5 mins")
   end
 
   scenario "使用者可以檢視任務" do
@@ -32,6 +33,7 @@ RSpec.feature "Task CRUD", type: :feature do
     expect(page).to have_text("更新成功!")
     expect(last_date.title).not_to have_content(task1.title)
     expect(last_date.title).to have_content("看書")
+    expect(last_date.content).to have_content("3 本書")
   end
 
   scenario "使用者可以刪除任務" do

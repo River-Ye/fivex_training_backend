@@ -30,7 +30,7 @@ RSpec.describe TasksController, type: :controller do
 
   describe "POST #create" do
     it "creates record" do
-      expect{ post :create, params: { task: task_params }}.to change{ Task.all.size }.by(1)
+      expect{ post :create, params: { task: task_params }}.to change{ Task.count }.by(1)
       expect(flash[:notice]).to eq "新增成功!"
     end
 
@@ -53,8 +53,8 @@ RSpec.describe TasksController, type: :controller do
     it "changes record" do
       post :update, params: { task: task_params, id: task }
       task.reload
-      expect(Task.find(task.id)[:title]).to eq "title_2"
-      expect(Task.find(task.id)[:content]).to eq "content_2"
+      expect(task.title).to eq "title_2"
+      expect(task.content).to eq "content_2"
     end
 
     it "redirect on success" do
@@ -81,7 +81,7 @@ RSpec.describe TasksController, type: :controller do
       expect{ delete :destroy, params: { id: task1 }}.to change{ Task.count }.by(-1)
       with_http302
       expect(find_task1).to be_blank
-      expect(response).to redirect_to(root_path(task2.id))
+      expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to eq "刪除成功!"
     end
 
@@ -90,26 +90,26 @@ RSpec.describe TasksController, type: :controller do
       expect{ delete :destroy, params: { id: task2 }}.to change{ Task.count }.by(0)
       with_http302
       expect(find_task1).not_to be_blank
-      expect(response).to redirect_to(root_path(Task.find(task2.id)))
+      expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to eq "刪除失敗!"
     end
   end
 
   private
 
-  def with_http200(tatus=200)
-    expect(response).to have_http_status(tatus)
+  def with_http200(status=200)
+    expect(response).to have_http_status(status)
   end
 
-  def without_http200(tatus=200)
-    expect(response).not_to have_http_status(tatus)
+  def without_http200(status=200)
+    expect(response).not_to have_http_status(status)
   end
 
-  def with_http302(tatus=302)
-    expect(response).to have_http_status(tatus)
+  def with_http302(status=302)
+    expect(response).to have_http_status(status)
   end
 
-  def without_http302(tatus=302)
-    expect(response).not_to have_http_status(tatus)
+  def without_http302(status=302)
+    expect(response).not_to have_http_status(status)
   end
 end
