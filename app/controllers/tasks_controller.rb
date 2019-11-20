@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
 
   def index
+    # 到「步驟17: 增加分頁功能」，先暫時用 all
     @tasks = Task.order(created_at: :desc)
   end
 
