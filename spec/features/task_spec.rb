@@ -3,8 +3,6 @@ require 'rails_helper'
 RSpec.feature "Task CRUD", type: :feature do
   let(:last_date) { Task.last }
   let!(:task1) { create(:task) }
-  let(:task2) { create(:task) }
-  let(:task3) { create(:task) }
 
   context "新增" do
     scenario "欄位 title、content 為必填" do
@@ -47,6 +45,8 @@ RSpec.feature "Task CRUD", type: :feature do
       click_button "更新任務"
   
       expect(page).to have_content("Title 不能為空白", "Content 不能為空白")
+      expect(page).not_to have_content(task1.title)
+      expect(page).not_to have_content(task1.content)
       expect(page).not_to have_text("更新成功!")
     end
 
@@ -74,11 +74,12 @@ RSpec.feature "Task CRUD", type: :feature do
   end
 
   context "排序方式" do
+    let!(:task2) { create(:task) }
+    let!(:task3) { create(:task) }
+
     scenario "任務列表以建立時間排序" do
-      task2
-      task3
       visit root_path
-  
+
       within "tbody>tr:nth-child(1)" do
         expect(page).to have_text("#{task3.title}")
       end
