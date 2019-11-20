@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.feature "Task CRUD", type: :feature do
   let(:last_date) { Task.last }
   let!(:task1) { create(:task) }
+  let(:task2) { create(:task) }
+  let(:task3) { create(:task) }
 
   scenario "使用者可以新增任務" do
     visit root_path
@@ -42,5 +44,23 @@ RSpec.feature "Task CRUD", type: :feature do
     expect{ click_link "刪除" }.to change(Task, :count).by(-1)
     expect(Task.find_by(id: task1.id)).to be_blank
     expect(page).to have_text("刪除成功!")
+  end
+
+  scenario "任務列表以建立時間排序" do
+    task2
+    task3
+    visit root_path
+
+    within "tbody>tr:nth-child(1)" do
+      expect(page).to have_text("#{task3.title}")
+    end
+
+    within "tbody>tr:nth-child(2)" do
+      expect(page).to have_text("#{task2.title}")
+    end
+
+    within "tbody>tr:nth-child(3)" do
+      expect(page).to have_text("#{task1.title}")
+    end
   end
 end
