@@ -32,6 +32,8 @@ RSpec.describe TasksController, type: :controller do
     it "creates record" do
       expect{ post :create, params: { task: task_params }}.to change{ Task.count }.by(1)
       expect(flash[:notice]).to eq "新增成功!"
+      expect(Task.last.title).to eq "title_2"
+      expect(Task.last.content).to eq "content_2"
     end
 
     it "redirect on success" do
