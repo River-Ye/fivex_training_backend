@@ -5,10 +5,10 @@ class Task < ApplicationRecord
   private
 
   def end_after_start
-  return if start_time.blank? || end_time.blank?
+    return if start_time.blank? || end_time.blank?
 
-  if end_time < start_time
-    errors.add(:end_time, :cant_end_after_start) 
-  end 
+    if end_time < start_time
+      errors.add(:end_time, :cant_end_after_start)
+    end
  end
 end
