@@ -5,12 +5,15 @@ RSpec.feature "Task CRUD", type: :feature do
   let!(:task1) { create(:task) }
 
   context "新增" do
-    scenario "欄位 title、content 為必填" do
+    scenario "欄位 title、content、start_time、end_time 為必填" do
       visit root_path
       click_link "新增任務"
       click_button "新增任務"
 
-      expect(page).to have_text("Title 不能為空白", "Content 不能為空白")
+      expect(page).to have_content("標題 不能為空白")
+      expect(page).to have_content("內容 不能為空白")
+      expect(page).to have_content("開始時間 不能為空白")
+      expect(page).to have_content("結束時間 不能為空白")
       expect(current_path).to eq "/tasks"
     end
 
@@ -19,11 +22,15 @@ RSpec.feature "Task CRUD", type: :feature do
       click_link "新增任務"
       fill_in "標題", with: "運動"
       fill_in "內容", with: "跑步 5 mins"
+      fill_in "開始時間", with: Time.zone.parse("2019-11-22 10:00")
+      fill_in "結束時間", with: Time.zone.parse("2019-11-22 14:00")
       click_button "新增任務"
 
       expect(page).to have_text("新增成功!")
       expect(last_date.title).to have_content("運動")
       expect(last_date.content).to have_content("跑步 5 mins")
+      expect(last_date.start_time).to have_content("2019-11-22 10:00")
+      expect(last_date.end_time).to have_content("2019-11-22 14:00")
     end
   end
 
@@ -33,20 +40,32 @@ RSpec.feature "Task CRUD", type: :feature do
       
       expect(page).to have_text("標題:")
       expect(page).to have_text("內容:")
+      expect(page).to have_text("開始時間:")
+      expect(page).to have_text("結束時間:")
       expect(page).to have_text(task1.title)
+      expect(page).to have_text(task1.content)
+      expect(page).to have_text(task1.start_time.strftime('%Y-%m-%d %H:%M'))
+      expect(page).to have_text(task1.end_time.strftime('%Y-%m-%d %H:%M'))
     end
   end
 
   context "修改" do
-    scenario "使用者修改欄位 title、content 為必填" do
+    scenario "使用者修改欄位 title、content、start_time、end_time 為必填" do
       visit "tasks/#{task1.id}/edit"
       fill_in "標題", with: ""
       fill_in "內容", with: ""
+      fill_in "開始時間", with: ""
+      fill_in "結束時間", with: ""
       click_button "更新任務"
   
-      expect(page).to have_content("Title 不能為空白", "Content 不能為空白")
+      expect(page).to have_content("標題 不能為空白")
+      expect(page).to have_content("內容 不能為空白")
+      expect(page).to have_content("開始時間 不能為空白")
+      expect(page).to have_content("結束時間 不能為空白")
       expect(page).not_to have_content(task1.title)
       expect(page).not_to have_content(task1.content)
+      expect(page).not_to have_content(task1.start_time.strftime('%Y-%m-%d %H:%M'))
+      expect(page).not_to have_content(task1.end_time.strftime('%Y-%m-%d %H:%M'))
       expect(page).not_to have_text("更新成功!")
     end
 
@@ -74,22 +93,23 @@ RSpec.feature "Task CRUD", type: :feature do
   end
 
   context "排序方式" do
-    let!(:task2) { create(:task) }
-    let!(:task3) { create(:task) }
+    let!(:task1) { create(:except_end_time, end_time: Time.zone.parse("2019-11-22 15:00")) }
+    let!(:task2) { create(:except_end_time, end_time: Time.zone.parse("2019-11-22 18:00")) }
+    let!(:task3) { create(:except_end_time, end_time: Time.zone.parse("2019-11-22 20:00")) }
 
-    scenario "任務列表以建立時間排序" do
+    scenario "任務列表以結束時間排序" do
       visit root_path
 
       within "tbody>tr:nth-child(1)" do
-        expect(page).to have_text("#{task3.title}")
+        expect(page).to have_text("2019-11-22 20:00")
       end
   
       within "tbody>tr:nth-child(2)" do
-        expect(page).to have_text("#{task2.title}")
+        expect(page).to have_text("2019-11-22 18:00")
       end
   
       within "tbody>tr:nth-child(3)" do
-        expect(page).to have_text("#{task1.title}")
+        expect(page).to have_text("2019-11-22 15:00")
       end
     end
   end

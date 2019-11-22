@@ -18,6 +18,16 @@
   </div>
 
   <div class="field">
+    <%= form.label :start_time, t("start_time") %>
+    <%= form.datetime_field :start_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time, t("end_time") %>
+    <%= form.datetime_field :end_time %>
+  </div>
+
+  <div class="field">
     <%= form.submit %>
   </div>
 <% end %>

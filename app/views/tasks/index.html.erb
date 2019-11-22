@@ -5,6 +5,8 @@
     <tr>
       <th><%= t("title") %></th>
       <th><%= t("content") %></th>
+      <th><%= t("start_time") %></th>
+      <th><%= t("end_time") %></th>
       <th colspan="2" ><%= t("action") %></th>
     </tr>
   </thead>
@@ -13,6 +15,8 @@
       <tr>
         <th><%= link_to task.title, task_path(task) %></th>
         <th><%= task.content %></th>
+        <th><%= task.start_time.strftime('%Y-%m-%d %H:%M') %></th>
+        <th><%= task.end_time.strftime('%Y-%m-%d %H:%M') %></th>
         <th><%= link_to t("edit"), edit_task_path(task) %></th>
         <th><%= link_to t("delete"), task_path(task), method: :delete, data: { confirm: t("delete_confirm") } %></th>
       </tr>
