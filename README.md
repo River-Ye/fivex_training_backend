@@ -28,10 +28,12 @@
 # ERD
 ## 實際 ERD
 ### Task model
-| Key  | Field   | Type   |
-| ---- | ------- | ------ |
-|      | title   | string |
-|      | content | text   |
+| Key  | Field      | Type     |
+| ---- | ---------- | -------- |
+|      | title      | string   |
+|      | content    | text     |
+|      | start_time | datetime |
+|      | end_time   | datetime |
 
 ## 預設最終 ERD
 ![](https://i.imgur.com/YsLjHue.png)
@@ -48,6 +50,7 @@ URL：[lucidchart (ERD)](https://www.lucidchart.com/documents/view/78befe44-6432
 7. `$ heroku run rails db:migrate`
 8. 到 [Freenom](https://www.freenom.com/zu/index.html) 買 domain
 9. 透過 [Cloudflare](https://www.cloudflare.com/zh-tw/) 設定 HTTPS
+10. 新增 basic 認證 (帳號：user 密碼：123)
 
 寫了一篇設定教學文章「[透過 Freenom 幫 Heroku 網址做 Cloudflare 的設定(Domain 買起來!!)](https://riverye.com/2019/11/19/透過-Freenom-幫-Heroku-網址做-Cloudflare-的設定-Domain-買起來/)」
 
