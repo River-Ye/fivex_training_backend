@@ -7,11 +7,17 @@ zh-TW:
         restrict_dependent_destroy:
           has_one: 由於 %{record} 需要此記錄，所以無法移除記錄
           has_many: 由於 %{record} 需要此記錄，所以無法移除記錄
+      models:
+        task:
+          cant_end_after_start: 必須大於開始時間
     models:
       task: 任務
-      attributes:
+    attributes:
+      task:
         title: "標題"
         content: "內容"
+        start_time: "開始時間"
+        end_time: "結束時間"
   date:
     abbr_day_names:
     - 周日
@@ -217,6 +223,8 @@ zh-TW:
   task_index: 任務列表
   title: 標題
   content: 內容
+  start_time: "開始時間"
+  end_time: "結束時間"
   action: 動作
   edit: 修改
   delete: 刪除

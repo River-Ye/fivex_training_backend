@@ -1,5 +1,7 @@
 <h1><%= t("task_show") %></h1>
 <p><%= t("title") %>: <%= @task.title %></p>
 <p><%= t("content") %>: <%= @task.content %></p>
+<p><%= t("start_time") %>: <%= @task.start_time.strftime('%Y-%m-%d %H:%M') %></p>
+<p><%= t("end_time") %>: <%= @task.end_time.strftime('%Y-%m-%d %H:%M') %></p>
 
 <%= link_to t("root"), root_path %>
