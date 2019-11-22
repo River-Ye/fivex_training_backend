@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
   let(:task) { create(:task) }
-  let(:task_params) { {title: "title_2", content: "content_2"} }
+  let(:task_params) {{ title: "title_2", content: "content_2", start_time: Time.zone.parse("2019-11-22 10:00"), end_time: Time.zone.parse("2019-11-22 14:00") }}
   
   describe "GET #index" do
     it "should show index page" do
@@ -34,6 +34,8 @@ RSpec.describe TasksController, type: :controller do
       expect(flash[:notice]).to eq "新增成功!"
       expect(Task.last.title).to eq "title_2"
       expect(Task.last.content).to eq "content_2"
+      expect(Task.last.start_time.strftime('%Y-%m-%d %H:%M')).to eq "2019-11-22 10:00"
+      expect(Task.last.end_time.strftime('%Y-%m-%d %H:%M')).to eq "2019-11-22 14:00"
     end
 
     it "redirect on success" do
@@ -57,6 +59,8 @@ RSpec.describe TasksController, type: :controller do
       task.reload
       expect(task.title).to eq "title_2"
       expect(task.content).to eq "content_2"
+      expect(Task.last.start_time.strftime('%Y-%m-%d %H:%M')).to eq "2019-11-22 10:00"
+      expect(Task.last.end_time.strftime('%Y-%m-%d %H:%M')).to eq "2019-11-22 14:00"
     end
 
     it "redirect on success" do
