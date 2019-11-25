@@ -32,4 +32,8 @@ RSpec.describe "posts", type: :routing do
   it "root" do
     expect(get: "/").to route_to("tasks#index")
   end
+
+  it "search" do
+    expect(get: "/tasks/search").to route_to("tasks#search")
+  end
 end

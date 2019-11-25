@@ -1,8 +1,10 @@
 require 'rails_helper'
 
-RSpec.feature "Task CRUD", type: :feature do
+RSpec.feature "Task", type: :feature do
   let(:last_date) { Task.last }
-  let!(:task1) { create(:task) }
+  let!(:task1) { create(:task, end_time: Time.zone.parse("2030-11-22 15:00")) }
+  let(:task2) { create(:task, end_time: Time.zone.parse("2030-11-22 18:00")) }
+  let(:task3) { create(:task, end_time: Time.zone.parse("2030-11-22 20:00")) }
 
   context "新增" do
     scenario "欄位 title、content、start_time、end_time 為必填" do
@@ -42,10 +44,12 @@ RSpec.feature "Task CRUD", type: :feature do
       expect(page).to have_text("內容:")
       expect(page).to have_text("開始時間:")
       expect(page).to have_text("結束時間:")
+      expect(page).to have_text("狀態:")
       expect(page).to have_text(task1.title)
       expect(page).to have_text(task1.content)
       expect(page).to have_text(task1.start_time.strftime('%Y-%m-%d %H:%M'))
       expect(page).to have_text(task1.end_time.strftime('%Y-%m-%d %H:%M'))
+      expect(page).to have_text(I18n.t("enums.task.status")[:"#{task1.status}"])
     end
   end
 
@@ -73,12 +77,14 @@ RSpec.feature "Task CRUD", type: :feature do
       visit "tasks/#{task1.id}/edit"
       fill_in "標題", with: "看書"
       fill_in "內容", with: "3 本書"
+      select "完成", from: "task_status"
       click_button "更新任務"
-  
+
       expect(page).to have_text("更新成功!")
       expect(last_date.title).not_to have_content(task1.title)
       expect(last_date.title).to have_content("看書")
       expect(last_date.content).to have_content("3 本書")
+      expect(last_date.status).to have_content(I18n.t("enums.task.status").key("完成").to_s)
     end
   end
 
@@ -93,24 +99,37 @@ RSpec.feature "Task CRUD", type: :feature do
   end
 
   context "排序方式" do
-    let!(:task1) { create(:except_end_time, end_time: Time.zone.parse("2019-11-22 15:00")) }
-    let!(:task2) { create(:except_end_time, end_time: Time.zone.parse("2019-11-22 18:00")) }
-    let!(:task3) { create(:except_end_time, end_time: Time.zone.parse("2019-11-22 20:00")) }
-
     scenario "任務列表以結束時間排序" do
+      task2
+      task3
       visit root_path
 
       within "tbody>tr:nth-child(1)" do
-        expect(page).to have_text("2019-11-22 20:00")
+        expect(page).to have_text("2030-11-22 20:00")
       end
   
       within "tbody>tr:nth-child(2)" do
-        expect(page).to have_text("2019-11-22 18:00")
+        expect(page).to have_text("2030-11-22 18:00")
       end
   
       within "tbody>tr:nth-child(3)" do
-        expect(page).to have_text("2019-11-22 15:00")
+        expect(page).to have_text("2030-11-22 15:00")
       end
+    end
+  end
+
+  context "查詢功能" do
+    scenario "使用者可以使用 title、status 查詢" do
+      task2
+      task3
+      visit root_path
+      fill_in "search_title", with: "title"
+      select "完成", from: "search_status"
+      click_button "搜尋"
+
+      expect(page).not_to have_text(task1.title)
+      expect(page).not_to have_text(task2.title)
+      expect(page).to have_text(task3.title)
     end
   end
 end

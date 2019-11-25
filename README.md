@@ -34,6 +34,7 @@
 |      | content    | text     |
 |      | start_time | datetime |
 |      | end_time   | datetime |
+|      | status     | integer  |
 
 ## 預設最終 ERD
 ![](https://i.imgur.com/YsLjHue.png)
