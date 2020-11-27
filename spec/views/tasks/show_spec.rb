@@ -7,7 +7,11 @@ RSpec.describe "tasks/show.html.erb",type: :view do
 
   it "render content when" do
     render
-    expect(rendered).to include("標題", "內容", "開始時間", "結束時間")
+    expect(rendered).to include("標題", 
+                                "內容", 
+                                "開始時間", 
+                                "結束時間", 
+                                "狀態")
   end
 
   it "has link" do

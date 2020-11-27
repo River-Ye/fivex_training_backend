@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 
   def index
     # 到「步驟17: 增加分頁功能」，先暫時用 all
-    @tasks = Task.order(end_time: :desc)
+    @tasks = Task.end_time
   end
 
   def show
@@ -14,6 +14,10 @@ class TasksController < ApplicationController
   end
 
   def edit
+  end
+
+  def search
+    @tasks = Task.search_params(params[:search_title]).search_params(params[:search_status]).end_time
   end
 
   def create
@@ -50,6 +54,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :start_time, :end_time)
+    params.require(:task).permit(:title, :content, :start_time, :end_time, :status)
   end
 end

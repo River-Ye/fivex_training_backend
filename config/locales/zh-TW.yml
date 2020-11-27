@@ -18,6 +18,12 @@ zh-TW:
         content: "內容"
         start_time: "開始時間"
         end_time: "結束時間"
+  enums:
+    task:
+      status:
+        pending: "待處理"
+        progress: "進行中"
+        completed: "完成"
   date:
     abbr_day_names:
     - 周日
@@ -225,6 +231,7 @@ zh-TW:
   content: 內容
   start_time: "開始時間"
   end_time: "結束時間"
+  status: "狀態"
   action: 動作
   edit: 修改
   delete: 刪除
@@ -239,3 +246,6 @@ zh-TW:
   update_success: 更新成功!
   delete_success: 刪除成功!
   delete_fail: 刪除失敗!
+  search: 搜尋
+  search_placeholder: 請搜尋「標題」
+  task_search: 搜尋結果

@@ -3,5 +3,6 @@
 <p><%= t("content") %>: <%= @task.content %></p>
 <p><%= t("start_time") %>: <%= @task.start_time.strftime('%Y-%m-%d %H:%M') %></p>
 <p><%= t("end_time") %>: <%= @task.end_time.strftime('%Y-%m-%d %H:%M') %></p>
+<p><%= t("status") %>: <%= I18n.t("enums.task.status")[:"#{@task.status}"] %></p>
 
 <%= link_to t("root"), root_path %>
